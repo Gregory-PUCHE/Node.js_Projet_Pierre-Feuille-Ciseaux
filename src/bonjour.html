@@ -1,0 +1,24 @@
+ml>
+  <head></head>
+  <body>
+    <h1>bonjour</h1>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script>
+      var sockVersServeur = io.connect();
+      sockVersServeur.on('texteFinal', function (message) {
+      document.getElementById("zone_texte_final").innerHTML = message;
+      }
+      );
+      // creation d'une fonction envoyant la reponse
+      function envoiReponse(rep) {
+        sockVersServeur.emit('reponseDuClient', rep);
+      }
+      </script>
+      <P>- Connais-tu l'histoire de Darth Plagueis le Sage ?</P>
+      <BUTTON onclick=envoiReponse('oui');>OUI</BUTTON>
+      <BUTTON onclick=envoiReponse('non');>NON</BUTTON>
+      <p id="zone_texte_final"></p>
+     
+  </body>
+</html>

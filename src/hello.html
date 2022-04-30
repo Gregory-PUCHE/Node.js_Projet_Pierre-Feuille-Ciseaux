@@ -1,0 +1,29 @@
+<html>
+  <head></head>
+  <body>
+    <h1>Projet Pierre-Feuille-Ciseaux</h1>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script>
+      var sockVersServeur = io.connect();
+      sockVersServeur.on('texteFinal', function (message) {
+      document.getElementById("zone_texte_final").innerHTML = message;
+      }
+    
+      );
+      sockVersServeur.on('textescore', function (message) {
+      document.getElementById("score").innerHTML = message;
+      });
+      // creation d'une fonction envoyant la reponse
+      function envoiReponse(rep) {
+        sockVersServeur.emit('reponseDuClient', rep);
+      }
+      </script>
+      <P>Choisissez bien:</P>
+      <BUTTON onclick=envoiReponse('pierre');>PIERRE</BUTTON>
+      <BUTTON onclick=envoiReponse('feuille');>FEUILLE</BUTTON>
+      <BUTTON onclick=envoiReponse('ciseaux');>CISEAUX</BUTTON>
+      <p id="zone_texte_final"></p>
+      <p id="score">Score : 0</p>
+  </body>
+</html>
